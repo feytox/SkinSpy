@@ -50,7 +50,7 @@ public class SkinSpy {
 
     private static boolean setSkinAndCape(MinecraftClient client, Consumer<Text> infoConsumer, String skinName, String skinVariant, String capeName) {
         boolean skinResult = skinName.isEmpty() || HttpUtil.uploadSkinRequest(client, infoConsumer, skinVariant, skinName);
-        boolean capeResult = capeName.isEmpty() || capeName.equals("HIDE") ? HttpUtil.hideCapeRequest(client, infoConsumer) : HttpUtil.showCapeRequest(client, infoConsumer, getCapeId(client, infoConsumer, capeName));
+        boolean capeResult = capeName.isEmpty() || capeName.equalsIgnoreCase("hide") ? HttpUtil.hideCapeRequest(client, infoConsumer) : HttpUtil.showCapeRequest(client, infoConsumer, getCapeId(client, infoConsumer, capeName));
         return skinResult && capeResult;
     }
 
