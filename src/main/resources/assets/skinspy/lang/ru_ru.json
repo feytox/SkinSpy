@@ -1,0 +1,28 @@
+{
+  "skinspy.config.generalCategory": "Основное",
+  "skinspy.config.enableMod": "Включить мод",
+  "skinspy.config.isBlocklistMode": "Режим блоклиста",
+  "skinspy.config.serverTag": "Тэг сервера",
+  "skinspy.config.defaultSkinName": "Название дефолтного скина",
+  "skinspy.config.isDefaultSlim": "Тонкие руки у дефолтного скина",
+  "skinspy.config.customSkinName": "Название кастомного скина",
+  "skinspy.config.isCustomSlim": "Тонкие руки у кастомного скина",
+  "skinspy.config.defaultCapeName": "Название дефолтного плаща",
+  "skinspy.config.customCapeName": "Название кастомного плаща",
+
+  "skinspy.config.isBlocklistMode.tooltip": "ВКЛЮЧЕНО - меняет скин на кастомный ТОЛЬКО на серверах с тэгом\nВЫКЛЮЧЕНО - меняет скин на кастомный везде, КРОМЕ серверов с тэгом",
+  "skinspy.config.serverTag.tooltip": "Позволяет определить тип использования мода на сервере (зависит от блоклиста).\nДанный тэг необходимо прописать в настройках сервера в списке серверов",
+  "skinspy.config.skinName.tooltip": "Название файла скина из папки 'skinspy' в папке 'config' игры (Например, \"skinspy.png\")",
+  "skinspy.config.capeName.tooltip": "API название плаща из доступных для вас плащей ('HIDE' = полностью скрыть плащ)\nСписок плащей: https://minecraft.fandom.com/wiki/Cape",
+  "skinspy.config.isSlimSkin.tooltip": "Тонкие ли руки у скина?",
+
+  "skinspy.response.getProfile.success": "Информация о профиле успешно получена",
+  "skinspy.response.getProfile.fail": "Возникла ошибка при получении информации о профиле (списке плащей). Подробнее - в консоли",
+  "skinspy.response.uploadSkin.success": "Скин успешно установлен",
+  "skinspy.response.uploadSkin.fail": "Возникла ошибка при установке скина. Подробнее - в консоли",
+  "skinspy.response.hideCape.success": "Плащ успешно скрыт",
+  "skinspy.response.hideCape.fail": "Возникла ошибка при скрытии плаща. Подробнее - в консоли",
+  "skinspy.response.showCape.success": "Плащ успешно установлен",
+  "skinspy.response.showCape.fail": "Возникла ошибка при установке плащ. Подробнее - в консоли",
+  "skinspy.response.showCape.empty": "Название плаща указано неверно либо вы им не владеете."
+}

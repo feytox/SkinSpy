@@ -1,0 +1,28 @@
+{
+  "skinspy.config.generalCategory": "General",
+  "skinspy.config.enableMod": "Enable Mod",
+  "skinspy.config.isBlocklistMode": "Blocklist Mode",
+  "skinspy.config.serverTag": "Server Tag",
+  "skinspy.config.defaultSkinName": "Default skin file name",
+  "skinspy.config.isDefaultSlim": "Slim hands of default skin",
+  "skinspy.config.customSkinName": "Custom Skin File Name",
+  "skinspy.config.isCustomSlim": "Slim hands of custom skin",
+  "skinspy.config.defaultCapeName": "Default Cape Name",
+  "skinspy.config.customCapeName": "Custom Cape Name",
+
+  "skinspy.config.isBlocklistMode.tooltip": "ON - changes the skin to custom ONLY on servers with the tag\nOFF - changes the skin to custom everywhere EXCEPT for servers with the tag",
+  "skinspy.config.serverTag.tooltip": "Allows you to determine the type of use of the mod on the server (depends on the blocklist).\nThis tag must be registered in the server settings in the list of servers",
+  "skinspy.config.skinName.tooltip": "The name of the skin file from the 'skinspy' folder in the game 'config' folder (For example, \"skinspy.png\")",
+  "skinspy.config.capeName.tooltip": "API name of the cape available to you ('HIDE' = hide all capes)\nList of all capes: https://minecraft.fandom.com/wiki/Cape",
+  "skinspy.config.isSlimSkin.tooltip": "Are the skin's hands slim?",
+
+  "skinspy.response.getProfile.success": "Profile information received successfully",
+  "skinspy.response.getProfile.fail": "An error occurred while getting profile information (list of capes). See console for details",
+  "skinspy.response.uploadSkin.success": "Skin installed successfully",
+  "skinspy.response.uploadSkin.fail": "An error occurred while installing the skin. See console for details",
+  "skinspy.response.hideCape.success": "Successfully hidden cape",
+  "skinspy.response.hideCape.fail": "An error occurred while hiding the cape. See console for details",
+  "skinspy.response.showCape.success": "Skinspy installed successfully",
+  "skinspy.response.showCape.fail": "An error occurred while installing the cape. See console for details",
+  "skinspy.response.showCape.empty": "The name of the cape is incorrect or you do not own it."
+}

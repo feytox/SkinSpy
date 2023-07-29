@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "skinspy",
+  "version": "${version}",
+  "name": "SkinSpy",
+  "description": "",
+  "authors": [
+    "Feytox"
+  ],
+  "contact": {
+    "repo": "https://github.com/Feytox/SkinSpy"
+  },
+  "license": "MIT",
+  "icon": "assets/skinspy/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "ru.feytox.skinspy.SkinSpyInitializer"
+    ],
+    "preLaunch": [
+      "ru.feytox.skinspy.SkinSpyPreLaunch"
+    ],
+    "modmenu": [
+      "ru.feytox.skinspy.config.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "skinspy.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": "1.19.3"
+  }
+}
