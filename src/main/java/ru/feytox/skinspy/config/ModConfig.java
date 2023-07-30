@@ -24,9 +24,9 @@ public class ModConfig implements ConfigData {
     public boolean isBlocklistMode = true;
     public String serverTag = "[SkinSpy]";
     public String defaultSkinName = "";
-    public boolean isDefaultSlim = true;
+    public SkinType defaultSkinType = SkinType.SLIM;
     public String customSkinName = "";
-    public boolean isCustomSlim = true;
+    public SkinType customSkinType = SkinType.SLIM;
     public String defaultCapeName = "";
     public String customCapeName = "";
 }

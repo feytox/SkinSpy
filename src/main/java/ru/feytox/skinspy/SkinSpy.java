@@ -1,6 +1,7 @@
 package ru.feytox.skinspy;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.JsonArray;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.JsonElement;
@@ -8,29 +9,38 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.JsonObject;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.api.SyntaxError;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
+import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import ru.feytox.skinspy.config.ModConfig;
+import ru.feytox.skinspy.config.SkinType;
 import ru.feytox.skinspy.mixin.ConnectScreenAccessor;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class SkinSpy {
 
     private static final Jankson JSON = Jankson.builder().build();
     @Nullable
     public static Map<String, String> cachedCapes = null;
+    public static boolean readyToConnect = false;
+    @Nullable
+    public static ConnectInfo connectInfo = null;
 
     private static void setConnectText(ConnectScreen connectScreen, Text text) {
         ((ConnectScreenAccessor) connectScreen).callSetStatus(text);
     }
 
-    public static boolean preConnectServer(MinecraftClient client, ConnectScreen connectScreen, ServerInfo serverInfo) throws InterruptedException {
+    public static boolean preConnectServer(MinecraftClient client, ConnectScreen connectScreen, ServerAddress address, ServerInfo serverInfo) {
         ModConfig config = ModConfig.get();
         if (!config.enableMod) return true;
 
+        connectInfo = new ConnectInfo(client, address, serverInfo);
         Consumer<Text> infoConsumer = text -> setConnectText(connectScreen, text);
         boolean blocklist = config.isBlocklistMode;
         boolean tag = serverInfo.name.contains(config.serverTag);
@@ -39,19 +49,27 @@ public class SkinSpy {
             if (!cacheCapes(client, infoConsumer)) return false;
         }
 
-        if (blocklist == tag) {
-            String skinVariant = config.isCustomSlim ? "slim" : "classic";
-            return setSkinAndCape(client, infoConsumer, config.customSkinName, skinVariant, config.customCapeName);
-        }
-
-        String skinVariant = config.isDefaultSlim ? "slim" : "classic";
-        return setSkinAndCape(client, infoConsumer, config.defaultSkinName, skinVariant, config.defaultCapeName);
+        String skinName = blocklist == tag ? config.customSkinName : config.defaultSkinName;
+        SkinType skinType = blocklist == tag ? config.customSkinType : config.defaultSkinType;
+        String capeName = blocklist == tag ? config.customCapeName : config.defaultCapeName;
+        return setSkinAndCape(client, infoConsumer, skinName, skinType, capeName);
     }
 
-    private static boolean setSkinAndCape(MinecraftClient client, Consumer<Text> infoConsumer, String skinName, String skinVariant, String capeName) {
-        boolean skinResult = skinName.isEmpty() || HttpUtil.uploadSkinRequest(client, infoConsumer, skinVariant, skinName);
-        boolean capeResult = capeName.isEmpty() || capeName.equalsIgnoreCase("hide") ? HttpUtil.hideCapeRequest(client, infoConsumer) : HttpUtil.showCapeRequest(client, infoConsumer, getCapeId(client, infoConsumer, capeName));
-        return skinResult && capeResult;
+    private static boolean setSkinAndCape(MinecraftClient client, Consumer<Text> infoConsumer, String skinName, SkinType skinType, String capeName) {
+        List<Supplier<Boolean>> requests = new ObjectArrayList<>();
+        if (!skinName.isEmpty()) {
+            requests.add(() -> HttpUtil.uploadSkinRequest(client, infoConsumer, skinType.name().toLowerCase(), skinName));
+        }
+        if (!capeName.isEmpty()) {
+            Supplier<Boolean> capeRequest = capeName.equalsIgnoreCase("hide") ? () ->  HttpUtil.hideCapeRequest(client, infoConsumer) : () ->  HttpUtil.showCapeRequest(client, infoConsumer, getCapeId(client, infoConsumer, capeName));
+            requests.add(capeRequest);
+        }
+
+        CompletableFuture.runAsync(() -> {
+            boolean result = sendRequests(infoConsumer, requests);
+            if (result) readyToConnect = true;
+        });
+        return requests.isEmpty();
     }
 
     @Nullable
@@ -60,6 +78,17 @@ public class SkinSpy {
         if (capeId != null) return capeId;
         boolean result = cacheCapes(client, infoConsumer);
         return result ? cachedCapes.get(capeAlias.toLowerCase()) : null;
+    }
+
+    public static boolean sendRequests(Consumer<Text> infoConsumer, List<Supplier<Boolean>> requests) {
+        if (requests.isEmpty()) return true;
+        boolean result = true;
+        infoConsumer.accept(Text.translatable("skinspy.info.request"));
+
+        for (Supplier<Boolean> request : requests) {
+            result = result && request.get();
+        }
+        return result;
     }
 
     public static boolean cacheCapes(MinecraftClient client, Consumer<Text> infoConsumer) {
@@ -88,4 +117,6 @@ public class SkinSpy {
             return false;
         }
     }
+
+    public record ConnectInfo(MinecraftClient client, ServerAddress address, ServerInfo info) {}
 }

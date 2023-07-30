@@ -53,12 +53,13 @@ public class ModMenuIntegration implements ModMenuApi {
                         .setTooltip(translatable("skinName.tooltip"))
                         .setSaveConsumer(value -> config.defaultSkinName = value)
                         .build())
-                .addEntry(entryBuilder.startBooleanToggle(
-                                translatable("isDefaultSlim"),
-                                config.isDefaultSlim)
-                        .setDefaultValue(true)
-                        .setTooltip(translatable("isSlimSkin.tooltip"))
-                        .setSaveConsumer(value -> config.isDefaultSlim = value)
+                .addEntry(entryBuilder.startEnumSelector(
+                        translatable("defaultSkinType"),
+                        SkinType.class,
+                        config.defaultSkinType)
+                        .setDefaultValue(SkinType.SLIM)
+                        .setTooltip(translatable("skinType.tooltip"))
+                        .setSaveConsumer(value -> config.defaultSkinType = value)
                         .build())
                 .addEntry(entryBuilder.startStrField(
                         translatable("customSkinName"),
@@ -67,12 +68,13 @@ public class ModMenuIntegration implements ModMenuApi {
                         .setTooltip(translatable("skinName.tooltip"))
                         .setSaveConsumer(value -> config.customSkinName = value)
                         .build())
-                .addEntry(entryBuilder.startBooleanToggle(
-                                translatable("isCustomSlim"),
-                                config.isCustomSlim)
-                        .setDefaultValue(true)
-                        .setTooltip(translatable("isSlimSkin.tooltip"))
-                        .setSaveConsumer(value -> config.isCustomSlim = value)
+                .addEntry(entryBuilder.startEnumSelector(
+                                translatable("customSkinType"),
+                                SkinType.class,
+                                config.customSkinType)
+                        .setDefaultValue(SkinType.SLIM)
+                        .setTooltip(translatable("skinType.tooltip"))
+                        .setSaveConsumer(value -> config.customSkinType = value)
                         .build())
                 .addEntry(entryBuilder.startStrField(
                                 translatable("defaultCapeName"),
