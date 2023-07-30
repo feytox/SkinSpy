@@ -9,12 +9,18 @@
   "skinspy.config.customSkinType": "Тип кастомного скина",
   "skinspy.config.defaultCapeName": "Название дефолтного плаща",
   "skinspy.config.customCapeName": "Название кастомного плаща",
+  "skinspy.config.enableSwitcher": "Включить Авто-Переключатель",
+  "skinspy.config.switcherDelay": "Кулдаун Авто-Переключателя (в секундах)",
+  "skinspy.config.showInfoInChat": "Включить вывод информации об ответах API в чат",
 
   "skinspy.config.isBlocklistMode.tooltip": "ВКЛЮЧЕНО - меняет скин на кастомный ТОЛЬКО на серверах с тэгом\nВЫКЛЮЧЕНО - меняет скин на кастомный везде, КРОМЕ серверов с тэгом",
   "skinspy.config.serverTag.tooltip": "Позволяет определить тип использования мода на сервере (зависит от блоклиста).\nДанный тэг необходимо прописать в настройках сервера в списке серверов",
   "skinspy.config.skinName.tooltip": "Название файла скина из папки 'skinspy' в папке 'config' игры (Например, \"skinspy.png\")",
   "skinspy.config.capeName.tooltip": "API название плаща из доступных для вас плащей ('HIDE' = полностью скрыть плащ)\nСписок плащей: https://minecraft.fandom.com/wiki/Cape",
   "skinspy.config.skinType.tooltip": "Позволяет выбрать толщину рук скина.\nSLIM - тонкие руки\nCLASSIC - обычные руки",
+  "skinspy.config.enableSwitcher.tooltip": "После захода на сервер после указанной ниже задержки автоматически будут установлены скин и плащ из противоположного набора",
+  "skinspy.config.switcherDelay.tooltip": "Отсчитывается в секундах после инициализации мира сервера",
+  "skinspy.config.showInfoInChat.tooltip": "Выводит в чат информацию об ответах API после установки скинов/плащей\n(Полезно лишь при включенном Авто-Переключателе)",
 
   "skinspy.response.getProfile.success": "Информация о профиле успешно получена",
   "skinspy.response.getProfile.fail": "Возникла ошибка при получении информации о профиле (списке плащей). Подробнее - в консоли",

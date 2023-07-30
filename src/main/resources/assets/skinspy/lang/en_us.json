@@ -9,12 +9,18 @@
   "skinspy.config.customSkinType": "Type of Custom Skin",
   "skinspy.config.defaultCapeName": "Default Cape Name",
   "skinspy.config.customCapeName": "Custom Cape Name",
+  "skinspy.config.enableSwitcher": "Enable Auto-Switcher",
+  "skinspy.config.switcherDelay": "Auto-Switcher cooldown (in seconds)",
+  "skinspy.config.showInfoInChat": "Enable showing information about API responses in chat",
 
   "skinspy.config.isBlocklistMode.tooltip": "ON - changes the skin to custom ONLY on servers with the tag\nOFF - changes the skin to custom everywhere EXCEPT for servers with the tag",
   "skinspy.config.serverTag.tooltip": "Allows you to determine the type of use of the mod on the server (depends on the blocklist).\nThis tag must be registered in the server settings in the list of servers",
   "skinspy.config.skinName.tooltip": "The name of the skin file from the 'skinspy' folder in the game 'config' folder (For example, \"skinspy.png\")",
   "skinspy.config.capeName.tooltip": "API name of the cape available to you ('HIDE' = hide all capes)\nList of all capes: https://minecraft.fandom.com/wiki/Cape",
   "skinspy.config.skinType.tooltip": "Allows you to select the thickness of the skin's arms.",
+  "skinspy.config.enableSwitcher.tooltip": "After joining the server, after the delay below, the skin and cape from the opposite kit will be automatically installed",
+  "skinspy.config.switcherDelay.tooltip": "Counted in seconds after server world initialization",
+  "skinspy.config.showInfoInChat.tooltip": "Displays information about API responses in chat after installing skins/cape\n(Only useful when Auto-Switcher is enabled)",
 
   "skinspy.response.getProfile.success": "Profile information received successfully",
   "skinspy.response.getProfile.fail": "An error occurred while getting profile information (list of capes). See console for details",

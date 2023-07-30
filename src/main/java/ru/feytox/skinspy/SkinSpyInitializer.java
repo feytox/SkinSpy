@@ -3,6 +3,7 @@ package ru.feytox.skinspy;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
@@ -22,6 +23,18 @@ public class SkinSpyInitializer implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
         startAsyncCapesCaching();
+
+        ClientTickEvents.END_WORLD_TICK.register(world -> {
+            if (SkinSpy.switcherTicks > 0) {
+                SkinSpy.switcherTicks--;
+            } else if (SkinSpy.switcherTicks == 0) {
+                SkinSpy.switcherTicks = -1;
+                ModConfig config = ModConfig.get();
+                MinecraftClient client = MinecraftClient.getInstance();
+                Consumer<Text> infoConsumer = config.showInfoInChat ? text -> { if (client.player != null) client.player.sendMessage(text); } : text -> {};
+                SkinSpy.setSkinAndCape(client, !SkinSpy.wasCustomKit, config, infoConsumer);
+            }
+        });
 
         LOGGER.info("SkinSpyInitializer has been initialized!");
     }

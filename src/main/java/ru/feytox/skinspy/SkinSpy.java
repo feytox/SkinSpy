@@ -28,6 +28,8 @@ public class SkinSpy {
     private static final Jankson JSON = Jankson.builder().build();
     @Nullable
     public static Map<String, String> cachedCapes = null;
+    public static int switcherTicks = -1;
+    public static boolean wasCustomKit = false;
     public static boolean readyToConnect = false;
     @Nullable
     public static ConnectInfo connectInfo = null;
@@ -40,6 +42,7 @@ public class SkinSpy {
         ModConfig config = ModConfig.get();
         if (!config.enableMod) return true;
 
+        switcherTicks = -1;
         connectInfo = new ConnectInfo(client, address, serverInfo);
         Consumer<Text> infoConsumer = text -> setConnectText(connectScreen, text);
         boolean blocklist = config.isBlocklistMode;
@@ -48,10 +51,16 @@ public class SkinSpy {
         if (cachedCapes == null) {
             if (!cacheCapes(client, infoConsumer)) return false;
         }
+        
+        wasCustomKit = blocklist == tag;
+        if (config.enableSwitcher) switcherTicks = config.switcherDelay * 20;
+        return setSkinAndCape(client, wasCustomKit, config, infoConsumer);
+    }
 
-        String skinName = blocklist == tag ? config.customSkinName : config.defaultSkinName;
-        SkinType skinType = blocklist == tag ? config.customSkinType : config.defaultSkinType;
-        String capeName = blocklist == tag ? config.customCapeName : config.defaultCapeName;
+    public static boolean setSkinAndCape(MinecraftClient client, boolean isCustomKit, ModConfig config, Consumer<Text> infoConsumer) {
+        String skinName = isCustomKit ? config.customSkinName : config.defaultSkinName;
+        SkinType skinType = isCustomKit ? config.customSkinType : config.defaultSkinType;
+        String capeName = isCustomKit ? config.customCapeName : config.defaultCapeName;
         return setSkinAndCape(client, infoConsumer, skinName, skinType, capeName);
     }
 
@@ -67,7 +76,9 @@ public class SkinSpy {
 
         CompletableFuture.runAsync(() -> {
             boolean result = sendRequests(infoConsumer, requests);
-            if (result) readyToConnect = true;
+            if (result) {
+                readyToConnect = true;
+            }
         });
         return requests.isEmpty();
     }

@@ -23,10 +23,13 @@ public class ModConfig implements ConfigData {
     public boolean enableMod = true;
     public boolean isBlocklistMode = true;
     public String serverTag = "[SkinSpy]";
+    public boolean enableSwitcher = false;
+    public int switcherDelay = 5;
     public String defaultSkinName = "";
     public SkinType defaultSkinType = SkinType.SLIM;
     public String customSkinName = "";
     public SkinType customSkinType = SkinType.SLIM;
     public String defaultCapeName = "";
     public String customCapeName = "";
+    public boolean showInfoInChat = true;
 }

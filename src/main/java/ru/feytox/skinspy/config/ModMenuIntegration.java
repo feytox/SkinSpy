@@ -46,6 +46,21 @@ public class ModMenuIntegration implements ModMenuApi {
                         .setTooltip(translatable("serverTag.tooltip"))
                         .setSaveConsumer(value -> config.serverTag = value)
                         .build())
+                .addEntry(entryBuilder.startBooleanToggle(
+                                translatable("enableSwitcher"),
+                                config.enableSwitcher)
+                        .setDefaultValue(false)
+                        .setTooltip(translatable("enableSwitcher.tooltip"))
+                        .setSaveConsumer(value -> config.enableSwitcher = value)
+                        .build())
+                .addEntry(entryBuilder.startIntField(
+                        translatable("switcherDelay"),
+                        config.switcherDelay)
+                        .setDefaultValue(5)
+                        .setMin(1)
+                        .setTooltip(translatable("switcherDelay.tooltip"))
+                        .setSaveConsumer(value -> config.switcherDelay = value)
+                        .build())
                 .addEntry(entryBuilder.startStrField(
                         translatable("defaultSkinName"),
                         config.defaultSkinName)
@@ -89,6 +104,13 @@ public class ModMenuIntegration implements ModMenuApi {
                         .setDefaultValue("")
                         .setTooltip(translatable("capeName.tooltip"))
                         .setSaveConsumer(value -> config.customCapeName = value)
+                        .build())
+                .addEntry(entryBuilder.startBooleanToggle(
+                                translatable("showInfoInChat"),
+                                config.showInfoInChat)
+                        .setDefaultValue(true)
+                        .setTooltip(translatable("showInfoInChat.tooltip"))
+                        .setSaveConsumer(value -> config.showInfoInChat = value)
                         .build());
 
         builder.transparentBackground();
